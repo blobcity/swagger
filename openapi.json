@@ -1,0 +1,106 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Charts API",
+    "description" : "Create, update and delete charts.",
+    "contact" : {
+      "email" : "support@blobcity.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/BlobCity/new-chart/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://visual-api.blobcity.com/rest/v1/charts",
+    "description" : "Create a new chart"
+  } ],
+  "paths" : {
+    "/new" : {
+      "post" : {
+        "summary" : "create a new chart",
+        "description" : "Creates a new chart with the specified parameter in the account of the requester",
+        "operationId" : "newChart",
+        "requestBody" : {
+          "description" : "Specifications of new chart",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/NewChart"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "chart created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing chart already exists"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "NewChart" : {
+        "required" : [ "chart", "query", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "example" : "column2d"
+          },
+          "chart" : {
+            "$ref" : "#/components/schemas/Chart"
+          },
+          "query" : {
+            "$ref" : "#/components/schemas/Query"
+          }
+        }
+      },
+      "Chart" : {
+        "required" : [ "caption", "xaxisname", "yaxisname" ],
+        "type" : "object",
+        "properties" : {
+          "caption" : {
+            "type" : "string"
+          },
+          "xaxisname" : {
+            "type" : "string"
+          },
+          "yaxisname" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Query" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "ACME Corporation"
+          },
+          "homePage" : {
+            "type" : "string",
+            "format" : "url",
+            "example" : "https://www.acme-corp.com"
+          },
+          "phone" : {
+            "type" : "string",
+            "example" : "408-867-5309"
+          }
+        }
+      }
+    }
+  }
+}
